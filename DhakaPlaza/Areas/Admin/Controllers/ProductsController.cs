@@ -136,7 +136,39 @@ namespace DhakaPlaza.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Get Delete action Method
+        
+        public ActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.Include(c=>c.SpecialTags).Include(c=>c.ProductTypes).Where(c => c.Id == id).FirstOrDefault();
+            if(product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
 
-
+        // Post Delete Action Method
+        [HttpPost]
+        [ActionName("Delete")] // to call DeleteConfirm as Delete
+        public async Task<IActionResult> DeleteConfirm(int? id) // we cant call same type method twice, so that changed the method name
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var products = _db.Products.FirstOrDefault(c => c.Id == id);
+            if(products == null)
+            {
+                return NotFound();
+            }
+            _db.Products.Remove(products);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
