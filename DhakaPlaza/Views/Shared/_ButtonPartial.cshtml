@@ -1,0 +1,40 @@
+﻿<!-- Used Font Awesome -->
+<!-- 
+     asp-action     = deticated action in controller file,
+     
+     asp-controller = contoller Name,
+     *** For Multiple use of controller, controller name should be ignorede
+     .... In that case, we have to use  only action name.....
+
+     asp-route-id   = here, "-id" is the parameter as "ActionResult" method & got this id from @Model 
+-->
+@model int
+@*
+    <td style="width: 150px">
+        <div class="btn-group">
+            <a asp-action="Edit" asp-controller="ProductTypes" class="btn btn-primary" asp-route-id="@Model">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a asp-action="Details" asp-controller="ProductTypes" class="btn btn-success" asp-route-id="@Model">
+                <i class="far fa-list-alt"></i>
+            </a>
+            <a asp-action="Delete" asp-controller="ProductTypes" class="btn btn-danger" asp-route-id="@Model">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </td>
+*@
+
+<td style="width: 150px">
+    <div class="btn-group">
+        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model">
+            <i class="fas fa-edit"></i>
+        </a>
+        <a asp-action="Details" class="btn btn-success" asp-route-id="@Model">
+            <i class="far fa-list-alt"></i>
+        </a>
+        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@Model">
+            <i class="fas fa-trash"></i>
+        </a>
+    </div>
+</td>

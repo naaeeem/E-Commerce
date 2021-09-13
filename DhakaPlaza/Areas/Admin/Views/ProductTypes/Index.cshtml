@@ -1,0 +1,64 @@
+﻿
+
+@using DhakaPlaza.Models;
+@model IEnumerable<ProductTypes>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info"> Product Type List </h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">
+            <i class="fas fa-plus"></i> &nbsp; New Product
+        </a>
+    </div>
+</div>
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(c => c.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.ProductType)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @item.Id  </td>
+                <td> @item.ProductType  </td>
+                <partial name="_ButtonPartial" Model="@item.Id" />
+            </tr>
+        }
+    </table>
+</div>
+
+<!-- For alertify -->
+@section scripts {
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript">
+        @* This function will call autometically *@
+        $(function() {
+            var msg = '@TempData["save"]';
+
+            if (msg != null) {
+                if (msg == "Deleted") {
+                    alertify.error('Product has been ' + msg);
+                }
+                if (msg == "Saved") {
+                    alertify.success('Product has been ' + msg);
+                }
+                
+            }
+        })
+    </script>
+}

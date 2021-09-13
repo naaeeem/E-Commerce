@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+@model DhakaPlaza.Models.SpecialTags
+
+<br />
+<h2 class="text-info">  Tag Types Details </h2>
+<form asp-action="Details" method="post">
+    <div class="p-4 rounded border">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="SpecialTag"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="SpecialTag" readonly="readonly" class="form-control" />
+            </div>
+            <span asp-validation-for="SpecialTag" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary"> Edit </a>
+            @*
+                Alternative way to redirect without post method,
+                <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-success"> Back to list </a>
+            *@
+
+            @*  This submit will hit the Details action Method  *@
+            <input type="submit" class="btn btn-success" value="Back to List" />
+        </div>
+    </div>
+</form>
+
+<!-- Validating in client site -->
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_validationScriptsPartial");
+    }
+}
