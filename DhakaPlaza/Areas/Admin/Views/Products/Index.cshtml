@@ -82,10 +82,19 @@
     <!-- JavaScript -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script type="text/javascript">
-        @* For Paginations *@
+        @* For Paginations , From here - https://datatables.net/ *@
         $(document).ready(function () {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                @* Add in table, Features like -> Copy, CSV, Excel, PDF, Print, From here -> https://datatables.net/extensions/buttons/examples/initialisation/simple.html *@
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
         });
+
+
+
 
         @* This function will call autometically *@
         $(function() {
