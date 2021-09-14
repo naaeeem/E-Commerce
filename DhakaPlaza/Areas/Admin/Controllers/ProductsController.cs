@@ -33,6 +33,21 @@ namespace DhakaPlaza.Areas.Admin.Controllers
             var data = _db.Products.Include(a=>a.ProductTypes).Include(b=>b.SpecialTags).ToList();
             return View(data);
         }
+        // POST Index action method
+        [HttpPost]
+        public IActionResult Index(decimal? lowPrice, decimal? largePrice)  // search products by price range
+        {
+            var products = 
+                _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTags).
+                Where(c => c.Price >= lowPrice && c.Price <= largePrice).ToList();
+            if(lowPrice == null || largePrice == null)
+            {
+                products =
+                    _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTags)
+                    .ToList();
+            }
+            return View(products);
+        }
 
         // Get Create action Method
         public ActionResult Create()
