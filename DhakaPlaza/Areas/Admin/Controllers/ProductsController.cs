@@ -39,6 +39,7 @@ namespace DhakaPlaza.Areas.Admin.Controllers
         {
             ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
             ViewData["tagId"] = new SelectList(_db.SpecialTags.ToList(), "Id", "SpecialTag");
+            
             return View();
         }
         // Post Create Action Method
@@ -48,6 +49,14 @@ namespace DhakaPlaza.Areas.Admin.Controllers
         {
             if (ModelState.IsValid) // check, if it can fullfill my assigned Annotations
             {
+                var searchedProduct = _db.Products.FirstOrDefault(c => c.Name == products.Name);
+                if(searchedProduct != null)
+                {
+                    ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
+                    ViewData["tagId"] = new SelectList(_db.SpecialTags.ToList(), "Id", "SpecialTag");
+                    ViewBag.message = "This product is already exist !";
+                    return View(products);
+                }
                 if(image != null) // image address saving
                 {
                     string __path = Path.Combine(_he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
