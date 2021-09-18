@@ -1,12 +1,14 @@
-﻿@model DhakaPlaza.Models.Products
+﻿
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Details";
 }
 
+@model DhakaPlaza.Models.Products
+
 <br />
-<h2 class="text-info"> Edit Products </h2>
+<h2 class="text-info"> Details Products </h2>
 <!--for data bind(storing data in Checkbox),  enctype="multipart/form-data"-->
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
+<form asp-action="" method="post" enctype="multipart/form-data">
     <div class="p-4 rounded border row">
         <div asp-validation-summary="ModelOnly" class="text-danger">
 
@@ -19,7 +21,7 @@
                 </div>
                 <div class="col-8">
                     <input type="hidden" asp-for="Id" /> <!-- to catch the Id -->
-                    <input asp-for="Name" class="form-control" />
+                    <input asp-for="Name" readonly="readonly" class="form-control" />
                 </div>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -28,28 +30,25 @@
                     <label asp-for="Price"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Price" class="form-control" />
+                    <input asp-for="Price" readonly="readonly" class="form-control" />
                 </div>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Image"></label>
-                </div>
-                <div class="col-8">
-                    <input src="~/@Model.Image" asp-for="Image" class="form-control" type="file" />
-                </div>
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            
-            
+            @*<div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Image"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Image" class="form-control" type="file" />
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>*@
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="ProductColor"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="ProductColor" class="form-control" />
+                    <input asp-for="ProductColor" readonly="readonly" class="form-control" />
                 </div>
                 <span asp-validation-for="ProductColor" class="text-danger"></span>
             </div>
@@ -58,40 +57,38 @@
                     <label asp-for="ProductTypeId"></label>
                 </div>
                 <div class="col-8">
-                    <select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"></select>
+                    @*<select asp-for="ProductTypeId" readonly="readonly" asp-items="ViewBag.productTypeId" class="form-control"></select>*@
+                    <input asp-for="ProductTypeId" readonly="readonly" class="form-control" />
                 </div>
                 <span asp-validation-for="ProductTypeId" class="text-danger"></span>
             </div>
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="SpecialTagId"></label>
+                    
                 </div>
                 <div class="col-8">
-                    <select asp-for="SpecialTagId" asp-items="ViewBag.tagId" class="form-control"> </select>
+                    <input type="submit" class="btn btn-info" value="Add to Cart" />
                 </div>
-                <span asp-validation-for="SpecialTagId" class="text-danger"></span>
+                
             </div>
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IsAvailable"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IsAvailable" class="" type="checkbox" />
-                </div>
-                <span asp-validation-for="IsAvailable" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Update" />
                 <a asp-action="Index" class="btn btn-success"> Back to List </a>
             </div>
         </did>
-
         <did class="col-1"> </did> <!-- This div-1 given for a space, no major use -->
-        
         <did class="col-3">
             <img src="~/@Model.Image" width="100%" style="border-radius: 5px; border: 1px solid #efefef" />
+            @if (Model.IsAvailable)
+            {
+                <img src="~/Images/in_stock.jpg" width="200px" height="50px" />
+            }
+            else
+            {
+                <img src="~/Images/out_of_stock.jpg" width="200px" height="50px" />
+            }
         </did>
     </div>
 </form>

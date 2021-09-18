@@ -94,6 +94,8 @@ namespace DhakaPlaza.Areas.Admin.Controllers
         // Get Edit action Method
         public ActionResult Edit(int? id)
         {
+            ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
+            ViewData["tagId"] = new SelectList(_db.SpecialTags.ToList(), "Id", "SpecialTag");
             if (id == null)
             {
                 return NotFound();
@@ -105,8 +107,7 @@ namespace DhakaPlaza.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
-            ViewData["tagId"] = new SelectList(_db.SpecialTags.ToList(), "Id", "SpecialTag");
+            
             return View(products);
         }
 

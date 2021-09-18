@@ -1,5 +1,7 @@
-﻿using DhakaPlaza.Models;
+﻿using DhakaPlaza.Data;
+using DhakaPlaza.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,18 @@ namespace DhakaPlaza.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)
         {
+            _db = db;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var data = _db.Products.Include(a => a.ProductTypes).Include(b => b.SpecialTags).ToList();
+            return View(data);
         }
 
         public IActionResult Privacy()
@@ -33,6 +38,31 @@ namespace DhakaPlaza.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+
+        // Get Products Details action Method
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var products = _db.Products.Include(a => a.ProductTypes)
+                .FirstOrDefault(c => c.Id == id);
+            if (products == null)
+            {
+                return NotFound();
+            }
+            return View(products);
+        }
+        // Post Details Action Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Details(Products products)
+        {
+            return RedirectToAction(nameof(Index));
         }
     }
 }

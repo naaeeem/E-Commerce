@@ -38,5 +38,13 @@ namespace DhakaPlaza.Models
         public int SpecialTagId { get; set; }
         [ForeignKey("SpecialTagId")]
         public SpecialTags SpecialTags { get; set; }
+
+
+
+
+
+
+
+       // public object ProductsTypes { get; internal set; }
     }
 }
