@@ -184,3 +184,4 @@ E:\Projects\ASP_DotNet\DhakaPlaza\DhakaPlaza\obj\Debug\netcoreapp3.1\Razor\Areas
 E:\Projects\ASP_DotNet\DhakaPlaza\DhakaPlaza\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Details.cshtml.g.cs
 E:\Projects\ASP_DotNet\DhakaPlaza\DhakaPlaza\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Products\Delete.cshtml.g.cs
 E:\Projects\ASP_DotNet\DhakaPlaza\DhakaPlaza\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Home\Details.cshtml.g.cs
+E:\Projects\ASP_DotNet\DhakaPlaza\DhakaPlaza\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Home\Cart.cshtml.g.cs

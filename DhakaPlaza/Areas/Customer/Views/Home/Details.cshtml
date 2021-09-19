@@ -2,13 +2,25 @@
 @{
     ViewData["Title"] = "Details";
 }
-
 @model DhakaPlaza.Models.Products
 
+@using DhakaPlaza.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    List<Products> cart_list = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("cart_list");
+    Products cur_cart_list = null;
+    if (cart_list != null)
+    {
+        cur_cart_list = cart_list.FirstOrDefault(c => c.Id == Model.Id);
+    }
+}
+
 <br />
-<h2 class="text-info"> Details Products </h2>
+<h2 class="text-info"> Customer : Details Products </h2>
 <!--for data bind(storing data in Checkbox),  enctype="multipart/form-data"-->
-<form asp-action="" method="post" enctype="multipart/form-data">
+<form asp-action="Details" method="post" enctype="multipart/form-data">
     <div class="p-4 rounded border row">
         <div asp-validation-summary="ModelOnly" class="text-danger">
 
@@ -65,12 +77,18 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    
+
                 </div>
                 <div class="col-8">
-                    <input type="submit" class="btn btn-info" value="Add to Cart" />
+                    @if (cur_cart_list != null)
+                    {
+                        <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.Id" > Remove from Cart </button> 
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+                    }
                 </div>
-                
             </div>
 
 
@@ -83,11 +101,11 @@
             <img src="~/@Model.Image" width="100%" style="border-radius: 5px; border: 1px solid #efefef" />
             @if (Model.IsAvailable)
             {
-                <img src="~/Images/in_stock.jpg" width="200px" height="50px" />
+                <img src="~/Images/in_stock.jpg" width="280px" height="100px" />
             }
             else
             {
-                <img src="~/Images/out_of_stock.jpg" width="200px" height="50px" />
+                <img src="~/Images/out_of_stock.jpg" width="280px" height="100px" />
             }
         </did>
     </div>

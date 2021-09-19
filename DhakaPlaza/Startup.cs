@@ -31,6 +31,18 @@ namespace DhakaPlaza
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //for Session: from here, https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.2
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                //options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -65,6 +77,9 @@ namespace DhakaPlaza
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //for Session: from here, https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.2
+            app.UseSession();
+
             /*
             app.UseEndpoints(endpoints =>
             {
@@ -74,7 +89,7 @@ namespace DhakaPlaza
                 endpoints.MapRazorPages();
             });
             */
-            
+
             /*
              * before update,
             app.UseMvc(routes =>

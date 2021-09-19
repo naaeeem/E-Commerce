@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using System.Net.Http
+@using DhakaPlaza.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    int count = 0;
+    List<Products> cart_list = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("cart_list");
+    if(cart_list == null)
+    {
+        cart_list = new List<Products>();
+    }
+    count = cart_list.Count();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -41,6 +56,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="SpecialTags" asp-action="Index"> Special Tags </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Cart">
+                                <i class="fas fa-shopping-cart"> </i>
+                                (@count)
+                            </a>
                         </li>
                     </ul>
                 </div>
