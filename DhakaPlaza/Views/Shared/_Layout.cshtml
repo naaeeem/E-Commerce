@@ -5,12 +5,12 @@
 
 @{ 
     int count = 0;
-    List<Products> cart_list = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("cart_list");
-    if(cart_list == null)
+    List<Products> session_list = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("session_list");
+    if(session_list == null)
     {
-        cart_list = new List<Products>();
+        session_list = new List<Products>();
     }
-    count = cart_list.Count();
+    count = session_list.Count();
 }
 
 <!DOCTYPE html>

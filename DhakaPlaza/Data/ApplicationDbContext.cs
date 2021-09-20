@@ -18,5 +18,8 @@ namespace DhakaPlaza.Data
         public DbSet<SpecialTags>SpecialTags { get; set; }
         public DbSet<Products> Products { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
     }
 }

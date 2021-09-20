@@ -9,11 +9,11 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
-    List<Products> cart_list = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("cart_list");
-    Products cur_cart_list = null;
-    if (cart_list != null)
+    List<Products> session_list = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("session_list");
+    Products cur_session_list = null;
+    if (session_list != null)
     {
-        cur_cart_list = cart_list.FirstOrDefault(c => c.Id == Model.Id);
+        cur_session_list = session_list.FirstOrDefault(c => c.Id == Model.Id);
     }
 }
 
@@ -80,7 +80,7 @@
 
                 </div>
                 <div class="col-8">
-                    @if (cur_cart_list != null)
+                    @if (cur_session_list != null)
                     {
                         <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.Id" > Remove from Cart </button> 
                     }

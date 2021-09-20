@@ -64,7 +64,8 @@ namespace DhakaPlaza.Controllers
         [ActionName("Details")]
         public ActionResult ProductDetails(int? id)
         {
-            List<Products> cart_list = new List<Products>();
+            List<Products> session_list = new List<Products>();
+            
             if (id == null)
             {
                 return NotFound();
@@ -75,27 +76,27 @@ namespace DhakaPlaza.Controllers
                 return NotFound();
             }
 
-            cart_list = HttpContext.Session.Get<List<Products>>("cart_list"); // without this only one data will get everytime
-            if(cart_list == null)
+            session_list = HttpContext.Session.Get<List<Products>>("session_list"); // without this only one data will get everytime
+            if(session_list == null)
             {
-                cart_list = new List<Products>();
+                session_list = new List<Products>();
             }
-            cart_list.Add(product);
-            HttpContext.Session.Set("cart_list", cart_list);
+            session_list.Add(product);
+            HttpContext.Session.Set("session_list", session_list);
             return View(product);
         }
 
         // GET Remove from cart action Method
         public IActionResult Remove(int? id)
         {
-            List<Products> cart_list = HttpContext.Session.Get<List<Products>>("cart_list");
-            if (cart_list != null)
+            List<Products> session_list = HttpContext.Session.Get<List<Products>>("session_list");
+            if (session_list != null)
             {
-                var cur_cart_list = cart_list.FirstOrDefault(c => c.Id == id);
-                if (cur_cart_list != null)
+                var cur_session_list = session_list.FirstOrDefault(c => c.Id == id);
+                if (cur_session_list != null)
                 {
-                    cart_list.Remove(cur_cart_list);
-                    HttpContext.Session.Set("cart_list", cart_list);
+                    session_list.Remove(cur_session_list);
+                    HttpContext.Session.Set("session_list", session_list);
                 }
             }
             return RedirectToAction(nameof(Cart));
@@ -105,14 +106,14 @@ namespace DhakaPlaza.Controllers
         [ActionName("Remove")]
         public IActionResult RemoveFromCart(int? id)
         {
-            List<Products> cart_list = HttpContext.Session.Get<List<Products>>("cart_list"); 
-            if (cart_list != null)
+            List<Products> session_list = HttpContext.Session.Get<List<Products>>("session_list"); 
+            if (session_list != null)
             {
-                var cur_cart_list = cart_list.FirstOrDefault(c => c.Id == id);
-                if(cur_cart_list != null)
+                var cur_session_list = session_list.FirstOrDefault(c => c.Id == id);
+                if(cur_session_list != null)
                 {
-                    cart_list.Remove(cur_cart_list);
-                    HttpContext.Session.Set("cart_list", cart_list);
+                    session_list.Remove(cur_session_list);
+                    HttpContext.Session.Set("session_list", session_list);
                 }
             }
             return RedirectToAction(nameof(Index));
@@ -121,13 +122,13 @@ namespace DhakaPlaza.Controllers
         // Get product cart action method
         public IActionResult Cart()
         {
-            List<Products> cart_list = HttpContext.Session.Get<List<Products>>("cart_list"); 
-            if (cart_list == null)
+            List<Products> session_list = HttpContext.Session.Get<List<Products>>("session_list"); 
+            if (session_list == null)
             {
-                cart_list = new List<Products>();
+                session_list = new List<Products>();
             }
 
-            return View(cart_list);
+            return View(session_list);
         }
     }
 }
